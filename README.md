@@ -1,15 +1,15 @@
-# gbook_remake
+# The Gbook Remake Application
 The Gbook remake is an application inspired by the Google Playbook app.
 
-#Home Page
+# Home Page
 =========
 When the user clicks on a book detail page, it will be added to the Library list, which will then be displayed as a carousel on the home page. The search bar is fully functional, allowing users to search for their desired books.
 
-#Library Page
+# Library Page
 ==========
 In the Library tab, users have the option to add books to the shelve list, which is developed using Hive. Users can rename (update), delete, and add books to the shelf. Additionally, users can change the layout of books in the library and sort them by title or author.
 
-#Technology Stack
+# Technology Stack
 =============
 State Management: BLoC and Provider for efficient state handling
 Framework & Language: Flutter and Dart for robust and scalable app development
