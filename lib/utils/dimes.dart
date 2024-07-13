@@ -5,6 +5,7 @@ const double kMarginSmall = 4;
 const double kMarginLarge = 24;
 const double kTabBarHeight = 55;
 const double kMarginMedium = 8;
+const double kShelfImageWidth = 60;
 
 /// Text Size
 const double kTextSmallx = 10;
@@ -18,4 +19,8 @@ const double kLGridHeight = 200;
 
 const double kSGridWidth = 80;
 const double kSGridHeight = 100;
+
+/// Icon size
+const double kSmallIconSize = 24;
+
 

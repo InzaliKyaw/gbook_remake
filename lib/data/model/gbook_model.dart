@@ -70,6 +70,13 @@ class GBookModel {
     return _shelvesDao.updateShelfByAddingBook(id, book);
   }
 
+  List<Books>? getBookListByShelfId(String shelfId){
+    return _shelvesDao.getBookListByShelfId(shelfId);
+  }
+
+  void updateShelfVODeleteBook(String id, Books book) {
+    return _shelvesDao.updateShelfByRemovingBook(id, book);
+  }
   Future<List<NyBookList>?> getNYBestSellerResponse(String apiKey) {
     return mDataAgent.getNYBooks(apiKey);
   }

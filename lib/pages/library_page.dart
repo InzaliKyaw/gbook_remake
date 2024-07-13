@@ -372,9 +372,14 @@ class _LibraryPageState extends State<LibraryPage> {
                                       ),
                                     ),
                                     const Spacer(),
-                                    Image.asset(
-                                      kDownloadImage,
-                                      color: kPrimaryColor,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                      child: Image.asset(
+                                        kDownloadImage,
+                                        height: kSmallIconSize,
+                                        width: kSmallIconSize,
+                                        color: kPrimaryColor,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -437,17 +442,30 @@ class _LibraryPageState extends State<LibraryPage> {
                               String? shelveName = shelvesL[index].shelveName;
                               String? shelfId = shelvesL[index].id;
                               int bookCount = shelvesL[index].bookCollectionList?.length ?? 0;
+                              String? firstBookImg = null;
+                              String? secondBookImg = null;
+                              String bookLabel = kBook;
+                              if(bookCount > 0){
+                                firstBookImg = shelvesL[index].bookCollectionList?.first.bookImage ?? "";
+                                if (bookCount > 1){
+                                  secondBookImg = shelvesL[index].bookCollectionList![1].bookImage ?? "";
+                                  bookLabel = kBooks;
+                                }
+                              }
                               return ShelfItemView(
                                   onTapShelve: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ShelvesDetailsPage(shelfId: shelfId ?? "",)));
+                                                ShelvesDetailsPage(shelfId: shelfId ?? "", bookLabel: bookLabel,)));
                                   },
                                   shelfId: shelfId,
                                   shelveName: shelveName,
-                                  bookCount: bookCount.toString(),);
+                                  bookLabel: bookLabel,
+                                  bookCount: bookCount.toString(),
+                                firstBookImg: firstBookImg,
+                                secondBookImg: secondBookImg,);
                             }),
                       ),
                     ),
@@ -531,7 +549,19 @@ class LibraryTabBar extends StatelessWidget {
   }
 }
 
-void _showFullScreenDialog(BuildContext context, Books book) {
+/*
+Book Add To Shleves by Id From Hive DB
+Add To Shelves
+=============
+The Book count/Book should be added to BookList By checked and removed at unchecked
+
+Remove From Shelves
+=============
+The Book count/Book should  removed at checked and not working at unchecked
+
+ */
+
+void _showFullScreenDialog(BuildContext context, Books book, String title) {
   Navigator.of(context).push(MaterialPageRoute<void>(
     fullscreenDialog: true,
     builder: (BuildContext context) {
@@ -567,15 +597,52 @@ void _showFullScreenDialog(BuildContext context, Books book) {
                               scrollDirection: Axis.vertical,
                               itemCount: shelvesL.length,
                               itemBuilder: (context, index) {
-                                String? shelveName = shelvesL[index].shelveName;
-                                String? shelfId = shelvesL[index].id;
+                                BookShelveVO? shelf = shelvesL[index];
+                                String? shelveName = shelf.shelveName;
+                                String? shelfId = shelf.id;
+                                int bookCount = shelvesL[index].bookCollectionList?.length ?? 0;
+                                String? firstBkImg = null;
+                                String? secondBkImg = null;
+                                String bookLabel = kBook;
+                                List<Books> bookListFromDB = shelf.bookCollectionList ?? [];
+                                firstBkImg = bookCount > 0 ? shelvesL[index].bookCollectionList?.first.bookImage : null;
+                                String booksAmt = bookCount > 0 ?  shelf.bookCollectionList!.length.toString() : "0";
+                                bool defaultCheck = false;
+                                for(Books bookNameChk in bookListFromDB){
+                                  if (bookNameChk.title == book.title){
+                                    defaultCheck = true;
+                                  }
+                                }
+
+                                if (bookCount > 1){
+                                  secondBkImg = shelvesL[index].bookCollectionList![1].bookImage ?? "";
+                                  bookLabel = kBooks;
+                                }
+                                // Extracting book names using map
+                                // List<String?>? bookNames = shelf.bookCollectionList?.map((bookFromList) => bookFromList.title).toList();
+
+                                // Checking if bookTitle exists in the list of book names
                                 return ShelfItemCheckView(
                                     shelfId: shelfId,
-                                    shelveName: shelveName, onTickCheck: (isChecked){
+                                    shelveName: shelveName,
+                                  onTickCheck: (isChecked){
                                     var bloc = context.read<LibraryBloc>();
-                                    bloc.updateShelfVOAddBook(shelfId!, book);
+                                    if(title == kAddToShelves){
+                                      if(isChecked){
+                                        bloc.updateShelfVOAddBook(shelfId!, book);
+                                      }else{
+                                        bloc.updateShelfVODeleteBook(shelfId!, book);
+                                        // booksAmt = bookCount > 0 ?  shelf.bookCollectionList!.length.toString() : "0";
+                                      }
+                                    }else{
+                                      bloc.updateShelfVODeleteBook(shelfId!, book);
+                                    }
                                     // shelvesL[index].bookCollectionList?.add(book);
-                                },);
+                                }, isChecked: defaultCheck,
+                                  bookCount: shelf.bookCollectionList?.length.toString(),
+                                  firstBookImg: firstBkImg,
+                                  secondBookImg: secondBkImg,
+                                  bookLabel: bookLabel,);
                               }),
                         ),
                       ),
@@ -596,8 +663,9 @@ Widget _buildSelectableTile(
       leading: Icon(icon),
       title: Text(title),
       onTap: () {
-        if (title == kAddToShelves) {
-          _showFullScreenDialog(context, book);
+        if (title == kDeleteFromLibrary) {
+        } else{
+          _showFullScreenDialog(context, book , title);
         }
       });
 }

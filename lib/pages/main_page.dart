@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gbook_remake/pages/home_page.dart';
 import 'package:gbook_remake/pages/library_page.dart';
-import 'package:gbook_remake/pages/shop_page.dart';
-import 'package:gbook_remake/pages/wishlist_page.dart';
 import 'package:gbook_remake/utils/colors.dart';
 import 'package:gbook_remake/utils/dimes.dart';
 import 'package:gbook_remake/utils/images.dart';
@@ -17,7 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  List<Widget> screenWidgets = [const HomePage(), const LibraryPage(), const WishListPage(), const ShopPage()];
+  List<Widget> screenWidgets = [const HomePage(), const LibraryPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +47,7 @@ class _MainPageState extends State<MainPage> {
         kHomeIcon,
         width: kMarginXLarge,
         height: kMarginXLarge,
+        color: kBottonNavigationUnSelectedColor,
       ),
       activeIcon: Image.asset(
         kHomeIcon,
@@ -63,6 +62,7 @@ class _MainPageState extends State<MainPage> {
         kLibraryIcon,
         width: kMarginXLarge,
         height: kMarginXLarge,
+        color: kBottonNavigationUnSelectedColor,
       ),
           activeIcon: Image.asset(
             kLibraryIcon,
@@ -71,34 +71,6 @@ class _MainPageState extends State<MainPage> {
             color: kPrimaryColor,
           ),
           label: kLibrary
-      ),
-      BottomNavigationBarItem(icon:
-      Image.asset(
-        kWishListIcon,
-        width: kMarginXLarge,
-        height: kMarginXLarge,
-      ),
-          activeIcon: Image.asset(
-            kWishListIcon,
-            width: kMarginXLarge,
-            height: kMarginXLarge,
-            color: kPrimaryColor,
-          ),
-          label: kWishlist
-      ),
-      BottomNavigationBarItem(icon:
-      Image.asset(
-        kShopIcon,
-        width: kMarginXLarge,
-        height: kMarginXLarge,
-      ),
-          activeIcon: Image.asset(
-            kShopIcon,
-            width: kMarginXLarge,
-            height: kMarginXLarge,
-            color: kPrimaryColor,
-          ),
-          label: kShop
       ),
     ];
   }

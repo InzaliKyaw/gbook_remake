@@ -38,6 +38,10 @@ class ShelvesDao{
    getShelfBox().get(id)?.shelveName = name;
   }
 
+  List<Books>? getBookListByShelfId(String shelfId){
+    return getShelfBox().get(shelfId)?.bookCollectionList;
+  }
+
   void updateShelfByAddingBook(String id,Books book) {
     final shelf = getShelfBox().get(id);
     // Get the current book collection list
@@ -55,7 +59,16 @@ class ShelvesDao{
     // print(bShelfCurrent);
   }
 
-  void deleteShelfById(String id){
+  void updateShelfByRemovingBook(String id,Books book) {
+    final shelf = getShelfBox().get(id);
+    if(shelf?.bookCollectionList != null){
+      shelf?.bookCollectionList?.remove(book);
+    }
+    getShelfBox().put(shelf?.id, shelf!);
+  }
+
+
+    void deleteShelfById(String id){
     getShelfBox().delete(id);
   }
   

@@ -43,11 +43,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // if (libraryBookList.isEmpty){
-    //   setState(() {
-    //     visibleBookList = false;
-    //   });
-    // }
   }
 
   @override
@@ -127,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                         return Visibility(
                           visible: visibleBookList,
                           child: SizedBox(
-                              height: 280,
+                              height: 300,
                               width: double.infinity,
                               child: ImageSliderDemo(bList: bookList)),
                         );
@@ -314,7 +309,7 @@ class _ImageSliderDemoState extends State<ImageSliderDemo> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: SizedBox(
                 width: 138,
-                height: 240,
+                height: 280,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -322,14 +317,14 @@ class _ImageSliderDemoState extends State<ImageSliderDemo> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        height: 200,
+                        height: 180,
                         item.bookImage ?? "",
-                        width: 138,
+                        width: 128,
                         fit: BoxFit.cover,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Text(item.title ?? "",
                         style: const TextStyle(
                           fontSize: 12,

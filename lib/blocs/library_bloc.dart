@@ -16,6 +16,7 @@ class LibraryBloc extends ChangeNotifier{
   StreamSubscription? _ebookSubscription;
   StreamSubscription? _shelvesSubscription;
 
+
   String shelveId = "";
 
   LibraryBloc(){
@@ -33,10 +34,19 @@ class LibraryBloc extends ChangeNotifier{
       shelvesList = shelvesFromDB;
       notifyListeners();
     });
+
   }
 
   void updateShelfVOAddBook(String id, Books book){
     return _model.updateShelfVOAddBook(id, book);
+  }
+
+  void updateShelfVODeleteBook(String id, Books book){
+    return _model.updateShelfVODeleteBook(id, book);
+  }
+
+  List<Books>? getCurrentBookShelf(String shelfId){
+    return _model.getBookListByShelfId(shelfId);
   }
 
   @override
