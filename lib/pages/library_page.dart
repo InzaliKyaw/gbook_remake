@@ -589,23 +589,22 @@ void _showFullScreenDialog(BuildContext context, Books book, String title) {
                     ],
                   ),
                      Expanded(
-                      child: Selector<LibraryBloc, List<BookShelveVO>>(
-                        selector: (context, bloc) => bloc.shelvesList,
-                        builder: (context, shelvesL, model) => Padding(
+                      child: Consumer<LibraryBloc>(
+                        builder: (context, bloc, model) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24.0),
                           child: ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount: shelvesL.length,
+                              itemCount: bloc.shelvesList.length,
                               itemBuilder: (context, index) {
-                                BookShelveVO? shelf = shelvesL[index];
+                                BookShelveVO? shelf = bloc.shelvesList[index];
                                 String? shelveName = shelf.shelveName;
                                 String? shelfId = shelf.id;
-                                int bookCount = shelvesL[index].bookCollectionList?.length ?? 0;
+                                int bookCount = bloc.shelvesList[index].bookCollectionList?.length ?? 0;
                                 String? firstBkImg = null;
                                 String? secondBkImg = null;
                                 String bookLabel = kBook;
                                 List<Books> bookListFromDB = shelf.bookCollectionList ?? [];
-                                firstBkImg = bookCount > 0 ? shelvesL[index].bookCollectionList?.first.bookImage : null;
+                                firstBkImg = bookCount > 0 ? bloc.shelvesList[index].bookCollectionList?.first.bookImage : null;
                                 String booksAmt = bookCount > 0 ?  shelf.bookCollectionList!.length.toString() : "0";
                                 bool defaultCheck = false;
                                 for(Books bookNameChk in bookListFromDB){
@@ -615,7 +614,7 @@ void _showFullScreenDialog(BuildContext context, Books book, String title) {
                                 }
 
                                 if (bookCount > 1){
-                                  secondBkImg = shelvesL[index].bookCollectionList![1].bookImage ?? "";
+                                  secondBkImg = bloc.shelvesList[index].bookCollectionList![1].bookImage ?? "";
                                   bookLabel = kBooks;
                                 }
                                 // Extracting book names using map

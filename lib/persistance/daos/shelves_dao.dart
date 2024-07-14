@@ -62,7 +62,10 @@ class ShelvesDao{
   void updateShelfByRemovingBook(String id,Books book) {
     final shelf = getShelfBox().get(id);
     if(shelf?.bookCollectionList != null){
-      shelf?.bookCollectionList?.remove(book);
+      int? indexToRemove = shelf?.bookCollectionList?.indexWhere((bookFromDB)=> bookFromDB.title == book.title);
+      if(indexToRemove != null){
+        shelf?.bookCollectionList?.removeAt(indexToRemove);
+      }
     }
     getShelfBox().put(shelf?.id, shelf!);
   }

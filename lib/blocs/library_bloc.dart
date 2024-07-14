@@ -32,6 +32,7 @@ class LibraryBloc extends ChangeNotifier{
 
     _shelvesSubscription = _model.getShelvesList().listen((shelvesFromDB){
       shelvesList = shelvesFromDB;
+      print("LIST UPDATED");
       notifyListeners();
     });
 
