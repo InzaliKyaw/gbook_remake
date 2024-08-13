@@ -22,3 +22,7 @@ The Gbook remake is an application inspired by the Google Playbook app.
 - **API Integration**
    Utilization of third-party APIs for extended functionality
 
+
+
+https://github.com/user-attachments/assets/20861165-aac7-4667-bd60-5d3a8ab8a02d
+
