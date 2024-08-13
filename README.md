@@ -1,5 +1,7 @@
 ## The Gbook Remake Application
+
 The Gbook remake is an application inspired by the Google Playbook app.
+
 
 - Home Page : When the user clicks on a book detail page, it will be added to the Library list, which will then be displayed as a carousel on the home page. The search bar is fully functional, allowing users to search for their desired books.
 
