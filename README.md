@@ -5,6 +5,8 @@ The Gbook remake is an application inspired by the Google Playbook app.
 
 - Library Page : In the Library tab, users have the option to add books to the shelve list, which is developed using Hive. Users can rename (update), delete, and add books to the shelf. Additionally, users can change the layout of books in the library and sort them by title or author.
 
+https://github.com/user-attachments/assets/20861165-aac7-4667-bd60-5d3a8ab8a02d
+
 ### Technology Stack
 
 - **State Management**
@@ -24,5 +26,5 @@ The Gbook remake is an application inspired by the Google Playbook app.
 
 
 
-https://github.com/user-attachments/assets/20861165-aac7-4667-bd60-5d3a8ab8a02d
+
 
